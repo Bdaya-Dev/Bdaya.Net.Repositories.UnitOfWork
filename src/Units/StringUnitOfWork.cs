@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Bdaya.Net.Repositories.UnitOfWork.Units
 {
-    public class StringUnitOfWork<TEntity> : IGuidUnitOfWork<TEntity>
-     where TEntity : class, IEntity<string>
+    public class StringUnitOfWork<TEntity> : IStringUnitOfWork<TEntity>
+     where TEntity : class, IStringEntity
     {
         private readonly DbContext _db;
         public StringRepos<TEntity> Repos { get; }
@@ -24,7 +24,8 @@ namespace Bdaya.Net.Repositories.UnitOfWork.Units
         public void Dispose() => _db.Dispose();
     }
 
-    public interface IGuidUnitOfWork<TEntity>
+    public interface IStringUnitOfWork<TEntity>
+             where TEntity : class, IStringEntity
     {
 
         Task<bool> Commit();

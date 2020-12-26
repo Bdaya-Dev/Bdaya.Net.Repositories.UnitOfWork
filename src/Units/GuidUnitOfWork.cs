@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Bdaya.Net.Repositories.UnitOfWork.Units
 {
     public class GuidUnitOfWork<TEntity> : IGuidUnitOfWork<TEntity>
-     where TEntity : class, IEntity<Guid>
+     where TEntity : class, IGuidEntity
     {
         private readonly DbContext _db;
         public GuidRepos<TEntity> Repos{ get; }
@@ -27,7 +27,8 @@ namespace Bdaya.Net.Repositories.UnitOfWork.Units
         public void Dispose() => _db.Dispose();
     }
 
-    public interface IStringUnitOfWork<TEntity>
+    public interface IGuidUnitOfWork<TEntity>
+      where TEntity : class, IGuidEntity
     {
 
         Task<bool> Commit();

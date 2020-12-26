@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Bdaya.Net.Repositories.UnitOfWork.Repos
 {
     public class IntRepos<TEntity> : IIntRepos<TEntity>
-        where TEntity : class, IEntity<int>
+        where TEntity : class, IIntEntity
     {
         public DbSet<TEntity> Table { get; set; }
         public IntRepos(DbContext db)
@@ -56,7 +56,7 @@ namespace Bdaya.Net.Repositories.UnitOfWork.Repos
 
 
     public interface IIntRepos<TEntity>
-        where TEntity : class, IEntity<int>
+        where TEntity : class, IIntEntity
     {
         Task<PaginatedResponse<TEntity>> GetPaginatedListAsync(int pageIndex, int pageSize);
         Task<IEnumerable<TEntity>> GetTrash();

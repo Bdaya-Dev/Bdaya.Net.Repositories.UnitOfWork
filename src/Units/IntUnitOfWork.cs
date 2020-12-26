@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace Bdaya.Net.Repositories.UnitOfWork.Units
 {
     public class IntUnitOfWork<TEntity> : IIntUnitOfWork<TEntity>
-     where TEntity : class, IEntity<int>
+     where TEntity : class, IIntEntity
     {
         private readonly DbContext _db;
-        public IntRepos<TEntity> Repository { get; }
+        public IntRepos<TEntity> Repos { get; }
 
 
         public IntUnitOfWork(DbContext db)
         {
             _db = db;
-            Repository = new IntRepos<TEntity>(db);
+            Repos= new IntRepos<TEntity>(db);
         }
 
 
@@ -28,6 +28,7 @@ namespace Bdaya.Net.Repositories.UnitOfWork.Units
     }
 
     public interface IIntUnitOfWork<TEntity>
+         where TEntity : class, IIntEntity
     {
 
         Task<bool> Commit();

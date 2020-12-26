@@ -5,13 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Bdaya.Net.Repositories.UnitOfWork.Repos
 {
     public class StringRepos<TEntity> : IStringRepos<TEntity>
-        where TEntity : class, IEntity<string>
+        where TEntity : class, IStringEntity
     {
         public DbSet<TEntity> Table { get; set; }
         public StringRepos(DbContext db)
@@ -57,7 +56,7 @@ namespace Bdaya.Net.Repositories.UnitOfWork.Repos
 
 
     public interface IStringRepos<TEntity>
-    where TEntity : class, IEntity<string>
+    where TEntity : class, IStringEntity
     {
         Task<PaginatedResponse<TEntity>> GetPaginatedListAsync(int pageIndex, int pageSize);
         Task<IEnumerable<TEntity>> GetTrash();

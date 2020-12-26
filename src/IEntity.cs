@@ -3,17 +3,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bdaya.Net.Repositories.UnitOfWork
 {
-    public interface IEntity<TKey>
+    public interface IGuidEntity
     {
         [Key]
-        public TKey Id { get; set; }
+        public Guid Id { get; set; }
         public bool IsActive { get; set; }
     }
 
-    public interface IEntity
+    public interface IIntEntity
+    {
+        [Key]
+        public int Id { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public interface IStringEntity
     {
         [Key]
         public string Id { get; set; }
         public bool IsActive { get; set; }
     }
+
 }
