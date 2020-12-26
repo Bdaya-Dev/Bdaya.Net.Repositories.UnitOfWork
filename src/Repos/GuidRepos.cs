@@ -5,17 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Bdaya.Net.Repositories.UnitOfWork
+namespace Bdaya.Net.Repositories.UnitOfWork.Repos
 {
-    public class Repository<TEntity,TKey> : IRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
-        where TKey : struct,IEquatable<TKey>
- 
+    public class GuidRepos<TEntity> : IGuidRepos<TEntity>
+        where TEntity : class, IEntity<Guid>
     {
         public DbSet<TEntity> Table { get; set; }
-        public Repository(DbContext db)
+        public GuidRepos(DbContext db)
         {
             Table = db.Set<TEntity>();
         }
@@ -25,8 +24,8 @@ namespace Bdaya.Net.Repositories.UnitOfWork
         public void Delete(TEntity entity) => Table.Remove(entity);
         public void DeleteRange(IEnumerable<TEntity> entities) => Table.RemoveRange(entities);
 
-        public async Task<TEntity> GetByIdAsync(TKey Id)
-            => await Table.FirstOrDefaultAsync(x => x.Id.Equals(Id));
+        public async Task<TEntity> GetByIdAsync(Guid Id)
+            => await Table.FirstOrDefaultAsync(x => x.Id == Id);
 
         public void Update(TEntity entity) => Table.Update(entity);
 
@@ -54,5 +53,29 @@ namespace Bdaya.Net.Repositories.UnitOfWork
 
         public async Task<PaginatedResponse<TEntity>> GetPaginatedListAsync(int pageIndex = 1, int pageSize = 30)
             => await PaginatedList<TEntity>.CreateAsync(Table.Where(x => x.IsActive == true), pageIndex, pageSize);
+    }
+
+
+    public interface IGuidRepos<TEntity>
+    where TEntity : class, IEntity<Guid>
+    {
+        Task<PaginatedResponse<TEntity>> GetPaginatedListAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<TEntity>> GetTrash();
+        void Deactivate(TEntity entity);
+        void DeactivateRange(IEnumerable<TEntity> entities);
+        Task AddAsync(TEntity entity);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
+
+        void Update(TEntity entity);
+        void UpdateRange(IEnumerable<TEntity> entities);
+
+        void Delete(TEntity entity);
+        void DeleteRange(IEnumerable<TEntity> entities);
+
+        Task<IList<TEntity>> GetAllAsync();
+
+        Task<TEntity> GetByIdAsync(Guid Id);
+        IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> expression);
+
     }
 }

@@ -4,7 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<PackageIcon>Bdaya.png</PackageIcon>
 		<PackageId>Bdaya.Net.Repositories.UnitOfWork</PackageId>
-		<Version>1.1.0</Version>
+		<Version>1.3.0</Version>
 		<Authors>AhmedKhalil777</Authors>
 		<Company>Bdaya-Dev</Company>
 		<PackageDescription>Bdaya develoment Backend Generic Rsepository Design Pattern</PackageDescription>
@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="Bdaya.png" Pack="true" PackagePath="\"/>
+		<None Include="Bdaya.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
